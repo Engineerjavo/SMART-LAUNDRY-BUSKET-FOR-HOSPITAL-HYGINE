@@ -2,4 +2,6 @@
 1. Masika - Supervisor
 
 
-Note: complete README
+Notes:
+- Complete the README file
+- Add your CAD files
