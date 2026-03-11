@@ -17,18 +17,19 @@ Architecture Overview
 
 [Laundry Item Approaches]
                    │
-                   ▼
+                   
           [Ultrasonic Sensor]
    (Detects presence of laundry)
                    │
                    ▼
-          [Microcontroller / Arduino]
-           ┌───────────────┐
-           │               │
+     [Microcontroller / Arduino]
+        ┌───────────────┐
+       │                   │
            ▼               ▼
    [Servo Motor]       [Relay Module]
       Lid opens/         Activates
       closes            Disinfectant Spray
+
 Component Roles
 #Ultrasonic Sensor
 Detects laundry items approaching or placed in the basket.
@@ -50,18 +51,100 @@ Relay triggers → disinfectant spray is released.
 
 ## 3. How It Works
 
-## Collaborators
-1. Javan
-2. Masika - Supervisor
-- 
+The Smart Laundry Basket for Hospital Hygiene operates in a hands-free, automated sequence to ensure hygiene and efficiency:
 
-Its aproject that automatically opens lead of the laundry busket,when the  cloths are detected and sprays or disinfects the cloths once the lead closes
-#features
--
-automatic lid opening
-automatic lead closing
-disinfectant liquid control
+Step 1: Detect Laundry
+An ultrasonic sensor continuously measures the distance in front of the basket.
+When laundry is placed near the basket (within a defined range, e.g., 15 cm), the sensor detects it.
+The sensor sends a signal to the microcontroller (Arduino/ESP32).
+
+Step 2: Open Lid
+Upon detecting laundry, the microcontroller commands the servo motor to rotate and open the lid.
+The lid remains open for a short duration to allow the user to deposit laundry safely.
+
+Step 3: Close Lid
+After the laundry is deposited (or after the preset time), the microcontroller commands the servo to close the lid automatically.
+
+Step 4: Activate Disinfectant Spray
+Once the lid is closed, the microcontroller triggers a relay module.
+The relay powers a disinfectant pump, spraying sanitizer to maintain hygiene inside the basket.
+After a few seconds, the relay turns off the pump, completing the cycle.
+
+Step 5: Wait for Next Item
+The system returns to its idle state, continuously monitoring for the next laundry item.
+#Arduino Code
+H
+#include <Servo.h>
+
+// Pins
+Servo lidServo;          // Servo motor for lid
+int trigPin = 2;         // Ultrasonic Trigger
+int echoPin = 3;         // Ultrasonic Echo
+int relayPin = 6;        // Relay controlling disinfectant
+
+// Variables
+long duration;
+int distance;
+
+void setup() {
+  lidServo.attach(9);        // Servo signal pin
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(relayPin, OUTPUT);
+  digitalWrite(relayPin, LOW); // Ensure relay is off
+  lidServo.write(0);            // Lid closed initially
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Measure distance using ultrasonic sensor
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration * 0.034 / 2; // Convert to cm
+
+  Serial.print("Distance: ");
+  Serial.println(distance);
+
+  // Check if laundry is detected
+  if(distance > 0 && distance <= 15){ // Threshold distance in cm
+    lidServo.write(90);   // Open lid
+    delay(2000);          // Wait for user to deposit laundry
+    lidServo.write(0);    // Close lid
+    delay(500);           // Short delay before spraying disinfectant
+    digitalWrite(relayPin, HIGH); // Activate disinfectant
+    delay(3000);                  // Spray duration
+    digitalWrite(relayPin, LOW);  // Turn off spray
+  }
+
+  delay(500); // Wait before next measurement
+}
+#How the Code Works
+ 
+Ultrasonic Sensor Measurement
+Trigger sends a short pulse.
+Echo measures the time taken for the signal to bounce back.
+Distance is calculated in centimeters.
+#Lid Control
+If the measured distance is within the threshold, the servo opens the lid.
+After a fixed delay, the servo closes the lid automatically.
+#Disinfectant Control
+Relay pin is activated after the lid closes, turning on the disinfectant pump for a fixed time.
+Relay turns off automatically, completing the cycle.
+
+## Collaborators
+1. Javan Abondo otieno
+2. Masika Stephanie- Supervisor
+##features
+-automatic lid opening
+-automatic lead closing
+disinfectant liquid contro
 -sensor based detection
+
 #technologies
 -
 arduino uno
@@ -70,22 +153,8 @@ servo motor 5V
 relay module 5V
 dc mini pump 3V
 
-#how it works
--
-1.the ultrasonic sensor detects cloths near the basket
-2.the micro-contrler processes the signal
-3.the servo motor opens the lid
-4.the cloths are then placed in the busket.
-5.the busket lid closes aotomatically
-6.the disinfectant spray i activated for ten seconds then the system resets waiting for cloths
-#installation
--
-1.cloned the repository
-2.opened the arduino code
-3.uploaded the code to the arduino uno bord and simulated the code
-4.connected the components
-#project structure
--
+##installation
+
 smart laundry busket
 README.md
 code
