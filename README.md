@@ -12,6 +12,41 @@ Ideal for hygiene-critical applications such as hospitals, clinics, and industri
 This system combines automation, smart sensing, and hygiene maintenance to deliver a practical and reliable solution for handling laundry in professional settings, ensuring both efficiency and safety.
 
 ## 2. System Architecture
+The Smart Laundry Basket is built as a sensor-actuator system that automates laundry handling and hygiene. The architecture is designed for hands-free operation in hospitals or hygiene-critical facilities.
+Architecture Overview
+
+[Laundry Item Approaches]
+                   │
+                   ▼
+          [Ultrasonic Sensor]
+   (Detects presence of laundry)
+                   │
+                   ▼
+          [Microcontroller / Arduino]
+           ┌───────────────┐
+           │               │
+           ▼               ▼
+   [Servo Motor]       [Relay Module]
+      Lid opens/         Activates
+      closes            Disinfectant Spray
+Component Roles
+#Ultrasonic Sensor
+Detects laundry items approaching or placed in the basket.
+Sends a signal to the microcontroller to trigger lid operation.
+#Microcontroller (Arduino/ESP32)
+Receives sensor signals.
+Controls the servo motor to open and close the lid automatically.
+Activates the relay module to spray disinfectant after the lid closes.
+#Servo Motor
+Mechanically opens and closes the lid in response to the microcontroller.
+#Relay Module + Disinfectant Pump
+Controls the disinfectant spray system.
+Ensures the basket remains sanitized after laundry is deposited.
+#Operational Flow
+Laundry approaches → detected by the ultrasonic sensor.
+Microcontroller commands the servo motor → lid opens automatically.
+Laundry deposited → lid closes automatically.
+Relay triggers → disinfectant spray is released.
 
 ## 3. How It Works
 
