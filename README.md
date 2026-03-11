@@ -1,6 +1,15 @@
 # Smart Laundry Basket For Hospital Hygiene
 ## 1. Project Overview
-This project does abc for cde
+The Automatic Hygiene Laundry Basket is an intelligent, hands-free system designed to enhance hygiene and operational efficiency in hospitals, clinics, and professional laundry facilities. By integrating sensor-driven automation with disinfectant control, the system addresses the critical need for clean, safe, and odor-free handling of laundry in environments where contamination risks are high.
+
+Using an ultrasonic sensor, the basket detects the presence of laundry items and automatically opens its lid, allowing users to deposit laundry without physical contact. Once the items are placed inside, the lid closes automatically, and a relay-controlled disinfectant spray is triggered to sanitize the contents and maintain a hygienic environment.
+
+Key Benefits:
+Hands-free operation minimizes direct contact with laundry, reducing the risk of cross-contamination.
+Automated lid control ensures smooth, responsive operation.
+Disinfectant activation maintains a clean and safe environment by neutralizing bacteria and odors immediately after laundry is deposited.
+Ideal for hygiene-critical applications such as hospitals, clinics, and industrial laundry services.
+This system combines automation, smart sensing, and hygiene maintenance to deliver a practical and reliable solution for handling laundry in professional settings, ensuring both efficiency and safety.
 
 ## 2. System Architecture
 
