@@ -24,25 +24,29 @@ Architecture Overview
                    ▼
      [Microcontroller / Arduino]
         ┌───────────────┐
-       │                   │
-           ▼               ▼
+       │            
    [Servo Motor]       [Relay Module]
       Lid opens/         Activates
       closes            Disinfectant Spray
 
 Component Roles
+
 #Ultrasonic Sensor
 Detects laundry items approaching or placed in the basket.
 Sends a signal to the microcontroller to trigger lid operation.
+
 #Microcontroller (Arduino/ESP32)
 Receives sensor signals.
 Controls the servo motor to open and close the lid automatically.
 Activates the relay module to spray disinfectant after the lid closes.
+
 #Servo Motor
 Mechanically opens and closes the lid in response to the microcontroller.
+
 #Relay Module + Disinfectant Pump
 Controls the disinfectant spray system.
 Ensures the basket remains sanitized after laundry is deposited.
+
 #Operational Flow
 Laundry approaches → detected by the ultrasonic sensor.
 Microcontroller commands the servo motor → lid opens automatically.
@@ -73,7 +77,7 @@ After a few seconds, the relay turns off the pump, completing the cycle.
 Step 5: Wait for Next Item
 The system returns to its idle state, continuously monitoring for the next laundry item.
 #Arduino Code
-H
+
 #include <Servo.h>
 
 // Pins
@@ -126,12 +130,14 @@ void loop() {
 #How the Code Works
  
 Ultrasonic Sensor Measurement
-Trigger sends a short pulse.
-Echo measures the time taken for the signal to bounce back.
-Distance is calculated in centimeters.
+-Trigger sends a short pulse.
+-Echo measures the time taken for the signal to bounce back.
+-Distance is calculated in centimeters.
+
 #Lid Control
 If the measured distance is within the threshold, the servo opens the lid.
 After a fixed delay, the servo closes the lid automatically.
+
 #Disinfectant Control
 Relay pin is activated after the lid closes, turning on the disinfectant pump for a fixed time.
 Relay turns off automatically, completing the cycle.
@@ -139,6 +145,7 @@ Relay turns off automatically, completing the cycle.
 ## Collaborators
 1. Javan Abondo otieno
 2. Masika Stephanie- Supervisor
+
 ##features
 -automatic lid opening
 -automatic lead closing
@@ -153,15 +160,65 @@ servo motor 5V
 relay module 5V
 dc mini pump 3V
 
-##installation
+## Installation
+Basket system:
+. Hardware Setup
+Components Needed:
+1.Arduino Uno (or ESP32)
+2..Ultrasonic sensor (HC-SR04)
+3.Servo motor (SG90) for lid control
+4.Relay module for disinfectant pump
+5.Mini disinfectant pump
+6.Power supply (5V)
+Connecting wires
+Connections:
+Component
+Arduino Pin
+-Ultrasonic Trigger
+D2
+-Sends ultrasonic pulse
+Ultrasonic Echo
+D3
+-Receives reflected pulse
+Servo Motor
+D9
+-Controls lid movement
+-Relay Module
+D4
+-Activates disinfectant pump
+-Power Supply
+5V
 
-smart laundry busket
-README.md
-code
-circuit
-images
-#future improvements
--
+-Connect VCC and GND of all modules to Arduino 5V and GND.
+-Connect Trigger and Echo pins of the ultrasonic sensor to D2 and D3.
+-Connect the servo signal pin to D9.
+-Connect relay input pin to D4. Connect the disinfectant pump to the relay's NO (Normally Open) terminals with proper power supply.
+⚠️ Safety Tip: Ensure the relay and pump are powered correctly to avoid overloading the Arduino.
+
+2. Software Setup
+Install Arduino IDE on your computer.
+Connect your Arduino via USB.
+Open a new Arduino sketch and paste the code provided in the “How It Works” section.
+Ensure the following libraries are installed (if not, install via Arduino Library Manager):
+Servo.h
+
+3. Uploading the Code
+Select your Arduino board and COM port in Arduino IDE.
+Click Upload. Wait for the “Done uploading” message.
+
+4. Testing the System
+Place the basket in your intended location.
+Approach with a laundry item: the lid should open automatically.
+Deposit the laundry: the lid closes automatically, and the disinfectant pump activates.
+Repeat several times to ensure smooth operation.
+Adjust distance threshold in the code if the sensor detects too early or too late.
+
+5. Final Setup
+Secure all wires and components.
+Ensure the disinfectant reservoir is filled.
+The system is now ready for hands-free, hygienic operation in hospitals or laundry facilities.
+
+## Future recommendations 
 1.mobile app intergration
 2.gas odour sensors
 3.smart notifications
