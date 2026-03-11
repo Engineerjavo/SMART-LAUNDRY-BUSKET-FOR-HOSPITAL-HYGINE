@@ -1,5 +1,6 @@
 # Smart Laundry Basket For Hospital Hygiene
 ## 1. Project Overview
+This project does abc for cde
 
 ## 2. System Architecture
 
