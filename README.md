@@ -76,7 +76,8 @@ After a few seconds, the relay turns off the pump, completing the cycle.
 
 Step 5: Wait for Next Item
 The system returns to its idle state, continuously monitoring for the next laundry item.
-#Arduino Code
+### Arduino Code
+```
 
 #include <Servo.h>
 
@@ -127,6 +128,7 @@ void loop() {
 
   delay(500); // Wait before next measurement
 }
+```
 #How the Code Works
  
 Ultrasonic Sensor Measurement
