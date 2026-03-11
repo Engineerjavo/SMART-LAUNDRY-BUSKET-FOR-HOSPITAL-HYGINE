@@ -1,9 +1,16 @@
-# Collaborators
-1. Masika - Supervisor
-- 
-Project title is Smart laundry busket for hosptal hygine
+# Smart Laundry Basket For Hospital Hygiene
+## 1. Project Overview
 
- Its aproject that automatically opens lead of the laundry busket,when the  cloths are detected and sprays or disinfects the cloths once the lead closes
+## 2. System Architecture
+
+## 3. How It Works
+
+# Collaborators
+1. Javan
+2. Masika - Supervisor
+- 
+
+Its aproject that automatically opens lead of the laundry busket,when the  cloths are detected and sprays or disinfects the cloths once the lead closes
 #features
 -
 automatic lid opening
