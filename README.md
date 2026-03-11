@@ -5,7 +5,7 @@
 
 ## 3. How It Works
 
-# Collaborators
+## Collaborators
 1. Javan
 2. Masika - Supervisor
 - 
